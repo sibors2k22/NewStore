@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargando tienda...</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#121212',
+                        darkCard: '#1E1E1E',
+                        accent: '#3B82F6' // Un azul acero sobrio para botones
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased pb-20">
+
+    <header class="bg-darkCard shadow-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 id="store-name" class="text-2xl font-bold tracking-tight text-white transition-opacity duration-300 opacity-0">
+                ...
+            </h1>
+            <div class="flex items-center gap-4">
+                <button id="cart-btn" class="relative p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition">
+                    <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-accent text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8">
+        <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="bg-darkCard rounded-xl overflow-hidden shadow-lg border border-gray-800 flex flex-col">
+                <div class="h-48 bg-gray-800 animate-pulse"></div> <div class="p-4 flex flex-col flex-grow">
+                    <h2 class="text-sm font-semibold text-gray-200 mb-1">Cargando productos...</h2>
+                    <p class="text-accent font-bold mt-auto">--</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Simularemos la configuración que vendrá de la base de datos
+        const configuracionTienda = {
+            nombre: "CoccoleBoutique" // En el futuro esto vendrá de un fetch('/api/config')
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Aplicar el nombre de la tienda dinámicamente
+            document.title = configuracionTienda.nombre;
+            const storeNameElement = document.getElementById('store-name');
+            storeNameElement.textContent = configuracionTienda.nombre;
+            storeNameElement.classList.remove('opacity-0');
+        });
+    </script>
+</body>
+</html>
