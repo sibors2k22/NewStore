@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control - Tienda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0F172A', // Fondo ligeramente distinto para separar del área pública
+                        darkCard: '#1E293B',
+                        accent: '#3B82F6',
+                        success: '#10B981',
+                        danger: '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased pb-24">
+
+    <header class="bg-darkCard shadow-md sticky top-0 z-50 border-b border-gray-700">
+        <div class="max-w-md mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-tight text-white">Gestión de Tienda</h1>
+            <button class="text-gray-400 hover:text-white transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="max-w-md mx-auto px-4 py-6 grid grid-cols-2 gap-4">
+        <div class="bg-darkCard p-4 rounded-xl border border-gray-700 text-center">
+            <p class="text-sm text-gray-400">Ventas Hoy</p>
+            <p class="text-2xl font-bold text-success">$0.00</p>
+        </div>
+        <div class="bg-darkCard p-4 rounded-xl border border-accent text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-2 h-full bg-accent animate-pulse"></div>
+            <p class="text-sm text-gray-400">Pendientes</p>
+            <p class="text-2xl font-bold text-white">1</p>
+        </div>
+    </div>
+
+    <div class="max-w-md mx-auto px-4 mb-4 flex gap-2">
+        <button onclick="cambiarPestaña('ordenes')" id="btn-ordenes" class="flex-1 py-3 bg-accent text-white font-bold rounded-lg transition">Órdenes</button>
+        <button onclick="cambiarPestaña('productos')" id="btn-productos" class="flex-1 py-3 bg-darkCard text-gray-300 font-bold rounded-lg border border-gray-700 transition">Catálogo</button>
+    </div>
+
+    <main class="max-w-md mx-auto px-4">
+        
+        <div id="tab-ordenes" class="space-y-4 block">
+            <div class="bg-darkCard rounded-xl p-4 border border-gray-700 shadow-lg">
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <span class="bg-yellow-500/20 text-yellow-500 text-xs font-bold px-2 py-1 rounded">Transferencia Pendiente</span>
+                        <h3 class="font-bold text-lg mt-1">#ORD-001</h3>
+                    </div>
+                    <p class="text-xl font-bold text-white">$450.00</p>
+                </div>
+                <p class="text-sm text-gray-400 mb-1">👤 Cliente de Prueba</p>
+                <p class="text-sm text-gray-400 mb-4">📍 Calle Falsa 123...</p>
+                
+                <button class="w-full py-2 mb-3 bg-gray-800 text-gray-300 rounded border border-gray-600 text-sm flex justify-center items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    Ver Comprobante
+                </button>
+
+                <div class="flex gap-3">
+                    <button class="flex-1 py-3 bg-success hover:bg-emerald-400 text-white font-bold rounded-lg text-sm transition">
+                        Aprobar Orden
+                    </button>
+                    <button class="flex-1 py-3 bg-danger hover:bg-red-400 text-white font-bold rounded-lg text-sm transition">
+                        Rechazar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-productos" class="space-y-4 hidden">
+            <button class="w-full py-4 bg-darkCard border-2 border-dashed border-gray-600 rounded-xl text-gray-300 font-bold flex justify-center items-center gap-2 hover:border-accent hover:text-accent transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Agregar Nuevo Producto
+            </button>
+
+            <div class="bg-darkCard rounded-xl p-3 border border-gray-700 flex gap-4 items-center">
+                <div class="w-16 h-16 bg-gray-800 rounded flex-shrink-0"></div>
+                <div class="flex-grow">
+                    <h3 class="font-bold text-gray-200">Playera Básica</h3>
+                    <p class="text-sm text-accent font-bold">$250.00</p>
+                    <p class="text-xs text-gray-400 mt-1">Con Variantes (Stock: 15)</p>
+                </div>
+                <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                    <input type="checkbox" checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-success bg-success right-0"/>
+                    <label class="toggle-label block overflow-hidden h-5 rounded-full bg-success cursor-pointer"></label>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        /* Estilos rápidos para el switch */
+        .toggle-checkbox:checked { right: 0; border-color: #10B981; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #10B981; }
+        .toggle-checkbox { right: 1.25rem; border-color: #4B5563; z-index: 1; }
+        .toggle-label { background-color: #4B5563; }
+    </style>
+    <script>
+        function cambiarPestaña(pestaña) {
+            // Ocultar ambas
+            document.getElementById('tab-ordenes').classList.add('hidden');
+            document.getElementById('tab-productos').classList.add('hidden');
+            // Quitar estilos activos
+            document.getElementById('btn-ordenes').className = "flex-1 py-3 bg-darkCard text-gray-300 font-bold rounded-lg border border-gray-700 transition";
+            document.getElementById('btn-productos').className = "flex-1 py-3 bg-darkCard text-gray-300 font-bold rounded-lg border border-gray-700 transition";
+            
+            // Mostrar la seleccionada y poner estilo activo
+            document.getElementById('tab-' + pestaña).classList.remove('hidden');
+            document.getElementById('btn-' + pestaña).className = "flex-1 py-3 bg-accent text-white font-bold rounded-lg transition";
+        }
+    </script>
+</body>
+</html>
