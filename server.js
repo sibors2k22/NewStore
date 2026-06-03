@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+// Importa la configuración de la base de datos para activar la conexión
+const pool = require('./db'); 
 
 const app = express();
 
